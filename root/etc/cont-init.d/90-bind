@@ -1,0 +1,17 @@
+#!/usr/bin/with-contenv bash
+
+CWD=${PWD};
+SCRIPT_NAME=$(basename $BASH_SOURCE);
+
+bind_config() {
+    echo "**** (${SCRIPT_NAME} - bind_config) Settings permissions ****";
+    mkdir -p \
+        /var/cache/bind \
+        /var/log/named
+
+	chown -R docker:docker \
+        /var/cache/bind \
+        /var/log/named
+}
+
+bind_config;

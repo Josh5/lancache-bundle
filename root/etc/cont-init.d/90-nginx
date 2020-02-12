@@ -1,0 +1,28 @@
+#!/usr/bin/with-contenv bash
+
+CWD=${PWD};
+SCRIPT_NAME=$(basename $BASH_SOURCE);
+
+
+nginx_config() {
+    echo "**** (${SCRIPT_NAME} - nginx_config) Settings permissions ****";
+    mkdir -p \
+        /data/cache \
+        /var/log/nginx \
+        /config/etc/nginx/site-confs
+
+	rm -rf /config/etc/nginx/site-confs/*
+	cp -f /defaults/nginx/nginx.conf /config/etc/nginx/nginx.conf
+	cp -f /defaults/nginx/default.conf /config/etc/nginx/site-confs/default.conf
+
+    sed -i "s/CACHE_MEM_SIZE/${CACHE_MEM_SIZE}/"  /config/etc/nginx/site-confs/default.conf
+    sed -i "s/CACHE_DISK_SIZE/${CACHE_DISK_SIZE}/" /config/etc/nginx/site-confs/default.conf
+    sed -i "s/CACHE_MAX_AGE/${CACHE_MAX_AGE}/"    /config/etc/nginx/site-confs/default.conf
+
+	chown -R nginx:nginx \
+        /data/cache \
+        /var/log/nginx
+        /data/
+}
+
+nginx_config;

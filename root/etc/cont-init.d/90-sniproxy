@@ -1,0 +1,12 @@
+#!/usr/bin/with-contenv bash
+
+CWD=${PWD};
+
+UPSTREAM_DNS="${UPSTREAM_DNS:-8.8.8.8 8.8.4.4}";
+
+sniproxy_config() {
+    echo "**** (sniproxy_config) Configure upstream DNS ****";
+    sed -i "s/UPSTREAM_DNS/${UPSTREAM_DNS}/"    /etc/sniproxy.conf
+}
+
+sniproxy_config;
