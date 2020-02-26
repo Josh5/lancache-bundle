@@ -1,0 +1,13 @@
+version: '2'
+services:
+  lancache-bundle:
+    image: josh5/lancache-bundle:latest
+    env_file: .env
+    ports:
+      - ${LANCACHE_IP}:53:53/udp
+      - 443:443/tcp
+      - 80:80/tcp
+    volumes:
+      - ${CACHE_ROOT}/cache:/data/cache
+      - ${CACHE_ROOT}/log/named:/var/log/named
+      - ${CACHE_ROOT}/log/nginx:/var/log/nginx
