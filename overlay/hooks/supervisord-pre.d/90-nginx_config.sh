@@ -5,6 +5,10 @@ set -e
 echo "Configuring Nginx..."
 
 
+# Ensure directory exists
+mkdir -p /var/log/nginx
+
+
 # Change nginx settings to point to the stdout log locations
 sed -i -e "s|access_log .*$|error_log /var/log/nginx/access.log;|"  /etc/nginx/sites-available/10_generic.conf;
 sed -i -e "s|error_log .*$|error_log /var/log/nginx/error.log;|"  /etc/nginx/sites-available/10_generic.conf;
@@ -21,7 +25,7 @@ if [[ -h /var/log/nginx/error.log ]]; then
 fi
 
 # Set permissions of nginx log files
-chown -R ${WEBUSER}:adm /var/log/nginx/*
+chown -Rf ${WEBUSER}:adm /var/log/nginx
 
 
 # TODO: Make this work at some point... I think it is nicer to point logs to stdout 
