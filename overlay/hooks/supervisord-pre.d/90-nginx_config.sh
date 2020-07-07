@@ -10,7 +10,7 @@ mkdir -p /var/log/nginx
 
 
 # Change nginx settings to point to the stdout log locations
-sed -i -e "s|access_log .*$|error_log /var/log/nginx/access.log;|"  /etc/nginx/sites-available/10_generic.conf;
+sed -i -e "s|access_log .*$|access_log /var/log/nginx/access.log  cachelog;|"  /etc/nginx/sites-available/10_generic.conf;
 sed -i -e "s|error_log .*$|error_log /var/log/nginx/error.log;|"  /etc/nginx/sites-available/10_generic.conf;
 
 
