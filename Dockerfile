@@ -57,25 +57,6 @@ RUN \
         && rm -rf /var/lib/apt/lists/*
 
 
-# Install sniproxy
-RUN \
-    echo "**** Install sniproxy ****" \
-    && apt-get update \
-    && apt-get install -y \
-        sniproxy \
-    && \
-    echo "**** Install lancache-sniproxy configs ****" \
-        && git clone --depth=1 https://github.com/lancachenet/sniproxy /tmp/lancache-sniproxy \
-        && cp -rfv /tmp/lancache-sniproxy/overlay/* / \
-    && \
-    echo "**** Set permissions ****" \
-        && chmod 755 /scripts/* \
-    && \
-    echo "**** Cleanup setup files ****" \
-        && rm -rf /tmp/* \
-        && rm -rf /var/lib/apt/lists/*
-
-
 # Install dns and bind 
 RUN \
     echo "**** Install dns and bind ****" \
